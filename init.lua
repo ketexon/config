@@ -283,6 +283,12 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'Shatur/neovim-session-manager',
+    opts = {
+      autosave_ignore_buftypes = { 'terminal' }, -- this is bc, on windows at least, terminal breaks when reloaded
+    }
+  }
 }, {})
 
 -- [[ Setting options ]]
@@ -626,3 +632,14 @@ if string.find(os_uname, "Windows") and true or false then
   vim.opt.shell = 'powershell'
 end
 
+-- open neotree on start (after session manager, if applicable)
+local neotree_group = vim.api.nvim_create_augroup("neotree", {})
+vim.api.nvim_create_autocmd({ 'User' }, {
+  pattern = "SessionLoadPost",
+  desc = "Open Neotree on startup",
+  group = neotree_group,
+  callback = function()
+    vim.cmd "Neotree"
+  end,
+})
+  
