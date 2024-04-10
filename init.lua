@@ -288,6 +288,19 @@ require('lazy').setup({
     opts = {
       autosave_ignore_buftypes = { 'terminal' }, -- this is bc, on windows at least, terminal breaks when reloaded
     }
+  },
+  {
+    "kylechui/nvim-surround",
+    event = "VeryLazy",
+  },
+  {
+    'stevearc/aerial.nvim',
+    opts = {},
+    -- Optional dependencies
+    dependencies = {
+       "nvim-treesitter/nvim-treesitter",
+       "nvim-tree/nvim-web-devicons"
+    },
   }
 }, {})
 
