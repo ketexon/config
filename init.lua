@@ -222,7 +222,16 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  {
+    'numToStr/Comment.nvim',
+    opts = {
+
+    },
+    config = function(_, opts)
+      require("Comment").setup(opts)
+
+    end
+  },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -265,7 +274,7 @@ require('lazy').setup({
   --    up-to-date with whatever is in the kickstart repo.
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
-  --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
+  --e    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
   -- { import = 'custom.plugins' },
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -301,6 +310,17 @@ require('lazy').setup({
        "nvim-treesitter/nvim-treesitter",
        "nvim-tree/nvim-web-devicons"
     },
+  },
+  {
+    'ray-x/lsp_signature.nvim',
+    event = "VeryLazy",
+    opts = {
+      bind = true,
+
+    },
+    config = function(_, opts)
+      require("lsp_signature").setup(opts)
+    end
   }
 }, {})
 
@@ -495,6 +515,7 @@ local on_attach = function(_, bufnr)
 
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  nmap('<leader>h', vim.lsp.buf.hover, "LSP [H]over")
 
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
@@ -526,7 +547,7 @@ require('which-key').register {
   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
   ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-  ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
+  -- ['<leader>h'] = { name = 'More git', _ = 'which_key_ignore' },
   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
@@ -655,4 +676,4 @@ vim.api.nvim_create_autocmd({ 'User' }, {
     vim.cmd "Neotree"
   end,
 })
-  
+
