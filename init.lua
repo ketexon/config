@@ -403,6 +403,7 @@ require('lazy').setup({
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
         require("nvim-surround").setup({
+          "hello"
             -- Configuration here, or leave empty to use defaults
         })
     end
@@ -425,7 +426,6 @@ require('lazy').setup({
     end,
   },
 }, {})
-
 
 
 -- [[ Basic Keymaps ]]
