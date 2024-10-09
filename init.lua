@@ -63,11 +63,11 @@ local servers = {
       telemetry = { enable = false },
     },
   },
-  cmake = {
-    CMake = {
-      filetypes = {"cmake", "CMakeLists.txt"},
-    },
-  },
+  -- cmake = {
+  --   CMake = {
+  --     filetypes = {"cmake", "CMakeLists.txt"},
+  --   },
+  -- },
 }
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
