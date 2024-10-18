@@ -425,6 +425,12 @@ require('lazy').setup({
       })
     end,
   },
+  {
+    "j-morano/buffer_manager.nvim",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+  },
 }, {})
 
 
@@ -705,6 +711,11 @@ local function guess_dev_command()
   return commands and commands.dev or nil
 end
 
+local function guess_build_command()
+  local commands = guess_commands()
+  return commands and commands.build or nil
+end
+
 local function open_or_goto_terminal()
   local bufnr = vim.fn.bufnr("terminal")
   if bufnr < 0 then
@@ -720,7 +731,7 @@ local function open_or_goto_terminal()
 end
 
 -- buffer keybinds
-vim.keymap.set('n', '<leader>b', ":ls<cr>:b<space>", { desc = "Lists buffers and starts selecting one" })
+vim.keymap.set('n', '<leader>lb', require("buffer_manager.ui").toggle_quick_menu, { desc = "Opens buffer manager" })
 vim.keymap.set('n', '<leader>a', ":AerialOpen<cr>", { desc = "AerialOpen" })
 vim.keymap.set('n', '<leader>t', open_or_goto_terminal, { desc = "Open terminal below" })
 vim.keymap.set('n', '<leader><F5>', function()
@@ -743,6 +754,27 @@ vim.keymap.set('n', '<leader><F5>', function()
     print "No dev command"
   end
 end, { desc = "Run command in dev_command" })
+
+vim.keymap.set('n', '<leader>b', function()
+  local build_command = vim.g.build_command or guess_build_command()
+  if build_command then
+    local delay = open_or_goto_terminal() and 500 or 1000/60
+    vim.defer_fn(function()
+      vim.cmd "startinsert"
+      vim.fn.feedkeys(
+        vim.api.nvim_replace_termcodes("<C-c>", true, true, true)
+      )
+      vim.defer_fn(function()
+        vim.fn.feedkeys(
+          build_command
+          .. vim.api.nvim_replace_termcodes("<cr>", true, true, true)
+        )
+      end, 1000/60)
+    end, delay)
+  else
+    print "No build command"
+  end
+end, { desc = "Run command in build_command" })
 
 -- telescope
 local builtin = require('telescope.builtin')
