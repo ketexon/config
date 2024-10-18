@@ -309,26 +309,8 @@ require('lazy').setup({
     },
     opts = {
       filesystem = {
-        window = {
-          mappings = {
-            ["<leader>p"] = "feh",
-          },
-        },
         filtered_items = {
           visible = true,
-        },
-        commands = {
-          feh = function(state)
-            local node = state.tree:get_node()
-            if node.type == "file" then
-              vim.system(
-                { 'feh', node.path },
-                {
-                  cwd = vim.fn.getcwd()
-                }
-              )
-            end
-          end
         },
       },
     },
