@@ -431,6 +431,15 @@ require('lazy').setup({
       "nvim-lua/plenary.nvim",
     },
   },
+  {
+    "NeogitOrg/neogit",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "sindrets/diffview.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = true
+  },
 }, {})
 
 
@@ -787,6 +796,9 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
+-- Git
+vim.keymap.set('n', '<leader>gg', require('neogit').open)
+-- vim.keymap.set('n', '<leader>gg', require('neogit').open)
 
 -- auto load session.vim
 vim.api.nvim_create_autocmd('VimEnter', {
