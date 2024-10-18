@@ -797,8 +797,7 @@ vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 -- Git
-vim.keymap.set('n', '<leader>gg', require('neogit').open)
--- vim.keymap.set('n', '<leader>gg', require('neogit').open)
+vim.keymap.set('n', '<leader>g', require('neogit').open)
 
 -- auto load session.vim
 vim.api.nvim_create_autocmd('VimEnter', {
