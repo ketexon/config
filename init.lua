@@ -779,7 +779,18 @@ vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
 vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
 
 -- Git
-vim.keymap.set('n', '<leader>gg', require('neogit').open)
+vim.keymap.set('n', '<leader>gg', require('neogit').open, { desc = '[G]it' })
+
+-- remove window commands
+vim.keymap.set('n', '<C-w>H', '<Nop>')
+vim.keymap.set('n', '<C-w>J', '<Nop>')
+vim.keymap.set('n', '<C-w>K', '<Nop>')
+vim.keymap.set('n', '<C-w>L', '<Nop>')
+
+vim.keymap.set('n', '<leader>wh', '<C-w>H', { desc = "Move window to the very left", noremap = true })
+vim.keymap.set('n', '<leader>wj', '<C-w>J', { desc = "Move window to the very bottom", noremap = true })
+vim.keymap.set('n', '<leader>wk', '<C-w>K', { desc = "Move window to the very top", noremap = true })
+vim.keymap.set('n', '<leader>wl', '<C-w>L', { desc = "Move window to the very right", noremap = true })
 
 -- auto load session.vim
 vim.api.nvim_create_autocmd('VimEnter', {
