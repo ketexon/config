@@ -422,6 +422,16 @@ require('lazy').setup({
     },
     config = true
   },
+  {
+    "github/copilot.vim",
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = {
+      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    },
+  }
 }, {})
 
 
@@ -692,6 +702,8 @@ local function guess_commands()
     return { dev = "npm run dev", build = "npm run build" }
   elseif vim.fn.filereadable(cwd .. '/CMakeLists.txt') == 1 then
     return { build = "cmake -S . -B build && cmake --build build" }
+  elseif vim.fn.filereadable(cwd .. '/Cargo.toml') == 1 then
+    return { dev = "cargo run", build = "cargo build" }
   else
     return nil
   end
