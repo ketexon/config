@@ -44,7 +44,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 
 vim.o.foldcolumn = '1' -- '0' is not bad
-vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
@@ -98,9 +98,9 @@ require('lazy').setup({
   {
     'goolord/alpha-nvim',
     dependencies = { 'echasnovski/mini.icons' },
-    config = function ()
-      local startify = require'alpha.themes.startify'
-      require'alpha'.setup(startify.config)
+    config = function()
+      local startify = require 'alpha.themes.startify'
+      require 'alpha'.setup(startify.config)
     end,
   },
 
@@ -111,12 +111,14 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs to stdpath for neovim
-      { 'williamboman/mason.nvim',
+      {
+        'williamboman/mason.nvim',
         config = function()
           require "mason".setup()
         end
       },
-      { 'williamboman/mason-lspconfig.nvim',
+      {
+        'williamboman/mason-lspconfig.nvim',
         config = function()
           require "mason-lspconfig".setup {
             ensure_installed = vim.tbl_keys(servers),
@@ -183,27 +185,6 @@ require('lazy').setup({
       },
     },
   },
-
-  -- {
-  --   -- Theme inspired by Atom
-  --   'navarasu/onedark.nvim',
-  --   priority = 1000,
-  --   config = function()
-  --     vim.cmd.colorscheme 'onedark'
-  --   end,
-  -- },
-  -- THEME
-  -- {
-  --   "scottmckendry/cyberdream.nvim",
-  --   lazy = false,
-  --   priority = 1000,
-  --   config = function()
-  --     require("cyberdream").setup({
-  --       transparent = true,
-  --     })
-  --     vim.cmd.colorscheme 'cyberdream'
-  --   end,
-  -- },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -225,8 +206,8 @@ require('lazy').setup({
       options = {
         icons_enabled = true,
         theme = 'auto',
-        component_separators = { left = '', right = ''},
-        section_separators = { left = '', right = ''},
+        component_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
         disabled_filetypes = {
           statusline = {},
           winbar = {},
@@ -241,12 +222,12 @@ require('lazy').setup({
         }
       },
       sections = {
-        lualine_a = {'mode'},
-        lualine_b = {'branch', 'diff', 'diagnostics'},
-        lualine_c = {'filename'},
-        lualine_x = {'encoding', 'fileformat', 'filetype'},
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch', 'diff', 'diagnostics' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
         lualine_y = {
-          function ()
+          function()
             return os.date("%H:%M:%S")
           end
         },
@@ -258,8 +239,8 @@ require('lazy').setup({
       inactive_sections = {
         lualine_a = {},
         lualine_b = {},
-        lualine_c = {'filename'},
-        lualine_x = {'location'},
+        lualine_c = { 'filename' },
+        lualine_x = { 'location' },
         lualine_y = {},
         lualine_z = {}
       },
@@ -321,8 +302,8 @@ require('lazy').setup({
     opts = {},
     -- Optional dependencies
     dependencies = {
-       "nvim-treesitter/nvim-treesitter",
-       "nvim-tree/nvim-web-devicons"
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons"
     },
   },
   {
@@ -379,20 +360,21 @@ require('lazy').setup({
   {
     'mrcjkb/rustaceanvim',
     version = '^4', -- Recommended
-    lazy = false, -- This plugin is already lazy
+    lazy = false,   -- This plugin is already lazy
   },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
-        require("nvim-surround").setup({
-          "hello"
-            -- Configuration here, or leave empty to use defaults
-        })
+      require("nvim-surround").setup({
+        "hello"
+        -- Configuration here, or leave empty to use defaults
+      })
     end
   },
   {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    'nvim-telescope/telescope.nvim',
+    branch = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' },
   },
   {
@@ -403,7 +385,7 @@ require('lazy').setup({
     config = function()
       require("ufo").setup({
         provider_selector = function(bufnr, filetype, buftype)
-          return {'treesitter', 'indent'}
+          return { 'treesitter', 'indent' }
         end
       })
     end,
@@ -429,9 +411,22 @@ require('lazy').setup({
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "github/copilot.vim" },                       -- or zbirenbaum/copilot.lua
       { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
     },
+  },
+  {
+    "ray-x/go.nvim",
+    dependencies = { -- optional packages
+      "ray-x/guihua.lua",
+      "neovim/nvim-lspconfig",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = { "CmdlineEnter" },
+    ft = { "go", 'gomod' },
   }
 }, {})
 
@@ -608,7 +603,7 @@ mason_lspconfig.setup_handlers {
   end,
 }
 
-require 'lspconfig'.gdscript.setup{}
+require 'lspconfig'.gdscript.setup {}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -692,7 +687,7 @@ vim.g.rustaceanvim = {
 
 -- editconfig command
 vim.api.nvim_create_user_command("EditConfig", function()
-  vim.cmd.e(vim.fn.stdpath("config").."/init.lua")
+  vim.cmd.e(vim.fn.stdpath("config") .. "/init.lua")
 end, {})
 
 local function guess_commands()
@@ -705,6 +700,8 @@ local function guess_commands()
     return { build = "cmake -S . -B build && cmake --build build" }
   elseif vim.fn.filereadable(cwd .. '/Cargo.toml') == 1 then
     return { dev = "cargo run", build = "cargo build" }
+  elseif vim.fn.filereadable(cwd .. '/go.mod') == 1 then
+    return { dev = "go run main.go", build = "go build -o build/" }
   else
     return nil
   end
@@ -720,16 +717,25 @@ local function guess_build_command()
   return commands and commands.build or nil
 end
 
+local terminal_buffer = nil
+local terminal_window = nil
+
 local function open_or_goto_terminal()
-  local bufnr = vim.fn.bufnr("terminal")
-  if bufnr < 0 then
-    vim.fn.feedkeys(vim.api.nvim_replace_termcodes(
-      "<esc><C-w><C-s><C-w><C-j>:term<cr>:keepalt file terminal<cr>",
-      true, true, true
-    ))
+  if not terminal_window then
+    terminal_window = vim.api.nvim_get_current_win()
+    vim.cmd("split")
+    vim.api.nvim_set_current_win(terminal_window)
+    vim.api.nvim_win_set_height(terminal_window, 20)
+
+    terminal_buffer = vim.api.nvim_create_buf(true, false)
+    vim.api.nvim_buf_set_name(terminal_buffer, "terminal")
+    vim.api.nvim_win_set_buf(terminal_window, terminal_buffer)
+    vim.fn.termopen(vim.o.shell)
+    vim.cmd("startinsert")
     return true
   else
-    vim.cmd.drop("terminal")
+    vim.api.nvim_set_current_win(terminal_window)
+    vim.cmd("startinsert")
     return false
   end
 end
@@ -741,7 +747,7 @@ vim.keymap.set('n', '<leader>t', open_or_goto_terminal, { desc = "Open terminal 
 vim.keymap.set('n', '<leader><F5>', function()
   local dev_command = vim.g.dev_command or guess_dev_command()
   if dev_command then
-    local delay = open_or_goto_terminal() and 500 or 1000/60
+    local delay = open_or_goto_terminal() and 500 or 1000 / 60
     vim.defer_fn(function()
       vim.cmd "startinsert"
       vim.fn.feedkeys(
@@ -752,7 +758,7 @@ vim.keymap.set('n', '<leader><F5>', function()
           dev_command
           .. vim.api.nvim_replace_termcodes("<cr>", true, true, true)
         )
-      end, 1000/60)
+      end, 1000 / 60)
     end, delay)
   else
     print "No dev command"
@@ -762,7 +768,7 @@ end, { desc = "Run command in dev_command" })
 vim.keymap.set('n', '<leader>b', function()
   local build_command = vim.g.build_command or guess_build_command()
   if build_command then
-    local delay = open_or_goto_terminal() and 500 or 1000/60
+    local delay = open_or_goto_terminal() and 500 or 1000 / 60
     vim.defer_fn(function()
       vim.cmd "startinsert"
       vim.fn.feedkeys(
@@ -773,7 +779,7 @@ vim.keymap.set('n', '<leader>b', function()
           build_command
           .. vim.api.nvim_replace_termcodes("<cr>", true, true, true)
         )
-      end, 1000/60)
+      end, 1000 / 60)
     end, delay)
   else
     print "No build command"
@@ -815,4 +821,14 @@ vim.api.nvim_create_autocmd('VimEnter', {
     end
   end,
   pattern = '*',
+})
+
+-- format go imports
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimports()
+  end,
+  group = format_sync_grp,
 })
